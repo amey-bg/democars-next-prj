@@ -1,0 +1,26 @@
+.spinner-parent {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top: 4px solid #000;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
