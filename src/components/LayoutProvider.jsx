@@ -36,7 +36,7 @@ function LayoutProvider({ children }) {
     try {
       dispatch(SetLoading(true));
       const response = await axios.get("/api/users/logout");
-      // console.log(response);
+      console.log("onLogout() response =", response);
       message.success("User logged out successfully!");
       router.push("/login");
     } catch (error) {

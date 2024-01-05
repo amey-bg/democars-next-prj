@@ -2,6 +2,7 @@ import { connectDB } from "@/config/dbConfig";
 import { validateTokenAndGetUserId } from "@/helpers/tokenValidation";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 connectDB();
 
@@ -10,8 +11,18 @@ export async function PUT(request, { params }) {
   try {
     const userId = await validateTokenAndGetUserId(request);
     const reqBody = await request.json();
+    console.log("reqBody in update user api =", reqBody);
     // const filter = { _id: reqBody._id };
     // const response = await Car.findByIdAndUpdate(filter, reqBody);
+
+    //Check if user is updating password
+    if (reqBody.password) {
+      // Hashed new password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(reqBody.password, salt);
+      reqBody.password = hashedPassword;
+    }
+
     const response = await User.findByIdAndUpdate(params.userid, reqBody, {
       new: true,
     });

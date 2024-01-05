@@ -7,7 +7,10 @@ export async function GET() {
       { status: 200 }
     );
 
+    console.log("Logout API response =", response);
+
     //Clear / remove cookie
+    response.cookies.set("token", "", { expires: new Date(Date.now()) });
     response.cookies.delete("token");
 
     return response;
